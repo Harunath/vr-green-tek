@@ -8,6 +8,7 @@ import WhoWeServe from "@/components/home/WhoWeServe";
 import GreenEnergy from "@/components/home/GreenEnergy";
 import React from "react";
 import OurProjects from "@/components/home/OurProjects";
+import Testimonials from "@/components/home/Testimonials";
 
 function page() {
 	return (
@@ -16,10 +17,11 @@ function page() {
 			<TrustedBrands />
 			<MiniAbout />
 			<ServicesWeOffer />
-			<OurProjects/>
+			<OurProjects />
 			<WhoWeServe />
 			<GreenEnergy />
 			<Clients />
+			<Testimonials />
 
 			<PositioningHero />
 		</>

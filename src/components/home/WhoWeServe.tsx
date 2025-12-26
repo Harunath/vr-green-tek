@@ -106,7 +106,7 @@ function ServeHoverCard({
 		<motion.article
 			onMouseEnter={onEnter}
 			onFocus={onEnter}
-			onClick={onClick} // makes mobile tap highlight
+			onClick={onClick}
 			tabIndex={0}
 			role="button"
 			aria-pressed={active}
@@ -118,27 +118,35 @@ function ServeHoverCard({
 				"hover:border-green-600/30 hover:shadow-md focus-visible:ring-2 focus-visible:ring-green-600/30",
 				"cursor-pointer"
 			)}>
-			{/* image layer (on hover/active) */}
+			{/* ✅ IMAGE SLIDE REVEAL (top -> bottom) */}
 			<div className="absolute inset-0">
-				<Image
-					src={item.image}
-					alt={item.title}
-					fill
-					className={cn(
-						"object-cover transition duration-500 will-change-transform",
-						active ? "opacity-100 scale-[1.03]" : "opacity-0 scale-100"
-					)}
-					sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 25vw"
-					priority={false}
-				/>
+				{/* reveal mask */}
 				<div
 					className={cn(
-						"absolute inset-0 transition duration-500",
-						active
-							? "opacity-100 bg-linear-to-b from-black/60 via-black/40 to-black/30"
-							: "opacity-0"
-					)}
-				/>
+						"absolute inset-0 origin-top scale-y-0 overflow-hidden transition-transform duration-500 ease-out",
+						active ? "scale-y-100" : "scale-y-0"
+					)}>
+					<Image
+						src={item.image}
+						alt={item.title}
+						fill
+						className={cn(
+							"object-cover transition duration-700 will-change-transform",
+							active ? "scale-[1.05]" : "scale-100"
+						)}
+						sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 25vw"
+						priority={false}
+					/>
+				</div>
+
+				{/* overlay slides with image (also top->bottom) */}
+				<div
+					className={cn(
+						"absolute inset-0 origin-top scale-y-0 transition-transform duration-500 ease-out",
+						active ? "scale-y-100" : "scale-y-0"
+					)}>
+					<div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/30" />
+				</div>
 			</div>
 
 			{/* top accent */}
@@ -195,7 +203,7 @@ function ServeHoverCard({
 					</span>
 				</div>
 
-				{/* points (more responsive) */}
+				{/* points */}
 				<div className="mt-5 grid gap-2">
 					{item.points.map((p) => (
 						<div
@@ -212,7 +220,7 @@ function ServeHoverCard({
 					))}
 				</div>
 
-				{/* footer pinned to bottom */}
+				{/* footer */}
 				<div className="mt-auto pt-6">
 					<div className="flex items-center justify-between">
 						<p
@@ -296,9 +304,9 @@ export default function WhoWeServe() {
 					</p>
 				</div>
 
-				{/* cards row: responsive */}
+				{/* cards row */}
 				<div className="mt-10">
-					{/* Mobile: horizontal scroll (best UX) */}
+					{/* Mobile: horizontal scroll */}
 					<div className="lg:hidden">
 						<div className="-mx-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 							<div className="flex snap-x snap-mandatory gap-4">
@@ -320,7 +328,7 @@ export default function WhoWeServe() {
 						</p>
 					</div>
 
-					{/* Desktop/large: 4 in a row */}
+					{/* Desktop */}
 					<div className="hidden lg:grid lg:grid-cols-4 lg:gap-6">
 						{SERVE.map((s, idx) => (
 							<ServeHoverCard

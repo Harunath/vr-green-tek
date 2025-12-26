@@ -137,7 +137,10 @@ export default function PositioningHero() {
 
 						{/* Trust pills */}
 						<motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
-							<TrustPill icon={FaShieldAlt} text="Licensed & Standards-Compliant" />
+							<TrustPill
+								icon={FaShieldAlt}
+								text="Licensed & Standards-Compliant"
+							/>
 							<TrustPill
 								icon={FaIndustry}
 								text="Industrial + Renewable Expertise"
@@ -150,7 +153,9 @@ export default function PositioningHero() {
 						</motion.div>
 
 						{/* CTA */}
-						<motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
+						<motion.div
+							variants={item}
+							className="mt-10 flex flex-wrap items-center gap-4">
 							<Link
 								href="/contact"
 								className="group inline-flex items-center gap-4 rounded-full bg-green-600 px-6 py-3 text-sm font-bold text-white shadow-sm">

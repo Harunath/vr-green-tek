@@ -124,14 +124,12 @@ function CategoryTab({
 					? "bg-green-600 text-white shadow-md shadow-green-600/30 scale-[1.02]"
 					: "bg-white text-[#0B1220] hover:bg-green-50 hover:ring-green-600/30",
 			].join(" ")}>
-			{/* left indicator */}
 			<span
 				className={[
 					"absolute left-3 h-2 w-2 rounded-full transition",
 					active ? "bg-white" : "bg-green-600",
 				].join(" ")}
 			/>
-
 			{label}
 		</button>
 	);
@@ -209,7 +207,6 @@ export default function ServicesWeOfferPro() {
 								sliderRef.current?.slickGoTo(0);
 							}}
 						/>
-
 						<CategoryTab
 							active={tab === "Electricals"}
 							label="Electricals"
@@ -228,44 +225,60 @@ export default function ServicesWeOfferPro() {
 							const Icon = s.Icon;
 							return (
 								<div key={s.id} className="px-3 pb-3">
-									{/* equal height card */}
-									<div className="group relative flex h-77.5 flex-col overflow-hidden rounded-3xl border border-black/10 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10">
+									{/* CARD */}
+									<div
+										className={[
+											"group relative flex h-77.5 flex-col overflow-hidden rounded-3xl",
+											"border border-black/10 bg-white p-7 shadow-sm",
+											"transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10",
+										].join(" ")}>
 										{/* top gradient rail */}
 										<div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-green-600 via-emerald-500 to-green-400" />
 
-										{/* subtle hover wash */}
-										<div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.18),transparent_45%),radial-gradient(circle_at_85%_75%,rgba(34,197,94,0.12),transparent_55%)]" />
-
-										{/* icon */}
-										<div className="relative inline-flex w-fit items-center gap-3">
-											<span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#F1F5F9] ring-1 ring-black/5 transition group-hover:bg-green-600">
-												<Icon className="text-[22px] text-green-600 transition group-hover:text-white" />
-											</span>
-											<span className="text-[11px] font-semibold tracking-widest text-[#111827]/50 uppercase">
-												{tab}
-											</span>
+										{/* ✅ FULL GREEN FILL ON HOVER (top -> bottom) */}
+										<div className="pointer-events-none absolute inset-0 z-0">
+											{/* green fill layer */}
+											<div className="absolute inset-0 origin-top scale-y-0 bg-green-600 transition-transform duration-500 ease-out group-hover:scale-y-100" />
+											{/* subtle sheen so it feels premium */}
+											<div className="absolute inset-0 origin-top scale-y-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,0.18),transparent_55%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.10),transparent_60%)] transition-transform duration-500 ease-out group-hover:scale-y-100" />
 										</div>
 
-										<h3 className="mt-5 text-lg font-extrabold text-[#0B1220]">
-											{s.title}
-										</h3>
+										{/* content must be above fill */}
+										<div className="relative z-10 flex h-full flex-col">
+											{/* icon */}
+											<div className="inline-flex w-fit items-center gap-3">
+												<span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#F1F5F9] ring-1 ring-black/5 transition group-hover:bg-white/15 group-hover:ring-white/20">
+													<Icon className="text-[22px] text-green-600 transition group-hover:text-white" />
+												</span>
+												<span className="text-[11px] font-semibold tracking-widest text-[#111827]/50 uppercase transition group-hover:text-white/80">
+													{tab}
+												</span>
+											</div>
 
-										<p className="mt-2 text-sm leading-relaxed text-[#111827]/65">
-											{s.desc}
-										</p>
+											<h3 className="mt-5 text-lg font-extrabold text-[#0B1220] transition group-hover:text-white">
+												{s.title}
+											</h3>
 
-										<div className="mt-auto pt-6">
-											<Link
-												href={s.href}
-												className="inline-flex items-center gap-2 text-sm font-semibold text-[#0B1220] transition group-hover:text-green-700">
-												Read More <FiArrowUpRight />
-											</Link>
+											<p className="mt-2 text-sm leading-relaxed text-[#111827]/65 transition group-hover:text-white/85">
+												{s.desc}
+											</p>
+
+											<div className="mt-auto pt-6">
+												<Link
+													href={s.href}
+													className="inline-flex items-center gap-2 text-sm font-semibold text-[#0B1220] transition group-hover:text-white">
+													Read More <FiArrowUpRight />
+												</Link>
+											</div>
+
+											{/* corner badge */}
+											<div className="pointer-events-none absolute right-5 top-5 rounded-full bg-black/5 px-3 py-1 text-[10px] font-semibold text-[#111827]/60 transition group-hover:bg-white/15 group-hover:text-white/80">
+												{tab === "Green Energy" ? "Renewable" : "Electrical"}
+											</div>
 										</div>
 
-										{/* corner badge */}
-										<div className="pointer-events-none absolute right-5 top-5 rounded-full bg-black/5 px-3 py-1 text-[10px] font-semibold text-[#111827]/60">
-											{tab === "Green Energy" ? "Renewable" : "Electrical"}
-										</div>
+										{/* optional: subtle border glow on hover */}
+										<div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-green-600/0 transition duration-300 group-hover:ring-2 group-hover:ring-white/20" />
 									</div>
 								</div>
 							);
