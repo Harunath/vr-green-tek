@@ -30,7 +30,6 @@ type Service = {
 };
 
 const SERVICES: Service[] = [
-	// GREEN ENERGY
 	{
 		id: "solar",
 		category: "Green Energy",
@@ -64,7 +63,6 @@ const SERVICES: Service[] = [
 		Icon: FiCpu,
 	},
 
-	// ELECTRICALS
 	{
 		id: "contracting",
 		category: "Electricals",
@@ -117,7 +115,8 @@ function CategoryTab({
 			type="button"
 			onClick={onClick}
 			className={[
-				"relative inline-flex items-center justify-center min-w-40",
+				"relative inline-flex items-center justify-center",
+				"w-full sm:w-auto sm:min-w-40", // ✅ responsive width
 				"rounded-xl px-6 py-3 text-sm font-semibold transition-all",
 				"ring-1 ring-black/10",
 				active
@@ -155,21 +154,35 @@ export default function ServicesWeOfferPro() {
 		autoplaySpeed: 3800,
 		pauseOnHover: true,
 		swipeToSlide: true,
+
+		// ✅ better feel on touch screens
+		touchThreshold: 12,
+
 		appendDots: (dots: React.ReactNode) => (
 			<div className="mt-8">
-				<ul className="flex justify-center gap-3">{dots}</ul>
+				<ul className="flex flex-wrap justify-center gap-3">{dots}</ul>
 			</div>
 		),
 		customPaging: () => <Dot />,
+
 		responsive: [
 			{ breakpoint: 1280, settings: { slidesToShow: 3 } },
 			{ breakpoint: 900, settings: { slidesToShow: 2 } },
-			{ breakpoint: 520, settings: { slidesToShow: 1 } },
+
+			// ✅ mobile: center the single card + avoid edge clipping
+			{
+				breakpoint: 520,
+				settings: {
+					slidesToShow: 1,
+					centerMode: true,
+					centerPadding: "24px",
+				},
+			},
 		],
 	};
 
 	return (
-		<section className="relative bg-[#F8FAFC] py-18">
+		<section className="relative bg-[#F8FAFC] py-14 sm:py-16 lg:py-20">
 			{/* premium background */}
 			<div className="pointer-events-none absolute inset-0">
 				<div className="absolute inset-0 [radial-gradient(rgba(16,185,129,0.10)_1px,transparent_1px)] [bg-size:18px_18px]" />
@@ -177,7 +190,7 @@ export default function ServicesWeOfferPro() {
 				<div className="absolute -bottom-24 right-10 h-72 w-72 rounded-full bg-green-500/10 blur-3xl" />
 			</div>
 
-			<div className="relative mx-auto max-w-7xl px-6">
+			<div className="relative mx-auto max-w-7xl px-4 sm:px-6">
 				{/* header */}
 				<div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 					<div className="max-w-2xl">
@@ -186,19 +199,19 @@ export default function ServicesWeOfferPro() {
 							SERVICES WE OFFER
 						</div>
 
-						<h2 className="mt-4 text-3xl font-extrabold tracking-tight text-[#0B1220] sm:text-5xl">
+						<h2 className="mt-4 text-2xl font-extrabold tracking-tight text-[#0B1220] sm:text-4xl lg:text-5xl">
 							Modern infrastructure for{" "}
 							<span className="text-green-600">{tab}</span>
 						</h2>
 
-						<p className="mt-3 text-sm text-[#111827]/70">
+						<p className="mt-3 text-sm sm:text-base text-[#111827]/70">
 							Professional execution, clean finish, and reliable support — built
 							for homes, businesses, and rural projects.
 						</p>
 					</div>
 
 					{/* tabs */}
-					<div className="flex items-center gap-3">
+					<div className="grid w-full grid-cols-1 gap-3 sm:w-auto sm:grid-cols-2 sm:gap-3">
 						<CategoryTab
 							active={tab === "Green Energy"}
 							label="Green Energy"
@@ -224,27 +237,28 @@ export default function ServicesWeOfferPro() {
 						{filtered.map((s) => {
 							const Icon = s.Icon;
 							return (
-								<div key={s.id} className="px-3 pb-3">
+								<div key={s.id} className="px-2 sm:px-3 pb-3">
 									{/* CARD */}
 									<div
 										className={[
-											"group relative flex h-77.5 flex-col overflow-hidden rounded-3xl",
-											"border border-black/10 bg-white p-7 shadow-sm",
+											"group relative flex flex-col overflow-hidden rounded-3xl",
+											"border border-black/10 bg-white p-6 sm:p-7 shadow-sm",
 											"transition hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10",
+
+											// ✅ responsive height
+											"min-h-65 sm:min-h-75 lg:min-h-80",
 										].join(" ")}>
 										{/* top gradient rail */}
 										<div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-green-600 via-emerald-500 to-green-400" />
 
-										{/* ✅ FULL GREEN FILL ON HOVER (top -> bottom) */}
+										{/* FULL GREEN FILL ON HOVER (top -> bottom) */}
 										<div className="pointer-events-none absolute inset-0 z-0">
-											{/* green fill layer */}
 											<div className="absolute inset-0 origin-top scale-y-0 bg-green-600 transition-transform duration-500 ease-out group-hover:scale-y-100" />
-											{/* subtle sheen so it feels premium */}
 											<div className="absolute inset-0 origin-top scale-y-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,0.18),transparent_55%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.10),transparent_60%)] transition-transform duration-500 ease-out group-hover:scale-y-100" />
 										</div>
 
-										{/* content must be above fill */}
-										<div className="relative z-10 flex h-full flex-col">
+										{/* content above fill */}
+										<div className="relative z-10 flex flex-1 flex-col">
 											{/* icon */}
 											<div className="inline-flex w-fit items-center gap-3">
 												<span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#F1F5F9] ring-1 ring-black/5 transition group-hover:bg-white/15 group-hover:ring-white/20">
@@ -255,7 +269,7 @@ export default function ServicesWeOfferPro() {
 												</span>
 											</div>
 
-											<h3 className="mt-5 text-lg font-extrabold text-[#0B1220] transition group-hover:text-white">
+											<h3 className="mt-5 text-base sm:text-lg font-extrabold text-[#0B1220] transition group-hover:text-white">
 												{s.title}
 											</h3>
 
@@ -277,7 +291,7 @@ export default function ServicesWeOfferPro() {
 											</div>
 										</div>
 
-										{/* optional: subtle border glow on hover */}
+										{/* subtle border glow */}
 										<div className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-green-600/0 transition duration-300 group-hover:ring-2 group-hover:ring-white/20" />
 									</div>
 								</div>
