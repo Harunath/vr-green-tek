@@ -61,7 +61,7 @@ export default function Hero({
 						{highlight && (
 							<>
 								<br />
-								<span className="text-emerald-400">{highlight}</span>
+								<span className="text-green-600">{highlight}</span>
 							</>
 						)}
 					</motion.h1>
