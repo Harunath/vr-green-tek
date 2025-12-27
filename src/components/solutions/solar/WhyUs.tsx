@@ -63,7 +63,7 @@ export default function WhyUs() {
 						backgroundSize: "26px 26px",
 					}}
 				/>
-				<div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-emerald-50/60 to-transparent" />
+				<div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-emerald-50/60 to-transparent" />
 			</div>
 
 			<div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
