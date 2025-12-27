@@ -29,13 +29,13 @@ const SOLUTIONS = [
 	},
 	{
 		label: "Energy Efficiency",
-		href: "/solutions/efficiency",
+		href: "/solutions/energy-efficiency",
 		icon: FiZap,
 		desc: "Reduce consumption & costs",
 	},
 	{
 		label: "Rural & Agri Power",
-		href: "/solutions/rural",
+		href: "/solutions/rural-energy",
 		icon: FiDroplet,
 		desc: "Pumps, cold storage & microgrids",
 	},
