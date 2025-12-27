@@ -182,7 +182,12 @@ function MiniKicker({ text }: { text: string }) {
 export default function MiniAboutPro() {
 	const [mode, setMode] = useState<Mode>("Green Energy");
 	const content = useMemo(() => DATA[mode], [mode]);
-
+	const displayHeadline =
+		mode === "Green Energy"
+			? content.headline.replace(/^Eco-friendly\s+/i, "")
+			: content.headline
+					.replace(/^Reliable\s+/i, "")
+					.replace(/^Electrical\s+/i, "");
 	return (
 		<section className="relative overflow-hidden bg-white py-14 sm:py-18">
 			{/* background */}
@@ -320,9 +325,7 @@ export default function MiniAboutPro() {
 									<span className="text-green-600">
 										{mode === "Green Energy" ? "Green" : "Electrical"}{" "}
 									</span>
-									{content.headline
-										.replace(/^Eco-friendly|^Reliable/, "")
-										.trim()}
+									{displayHeadline.trim()}
 								</h2>
 
 								<p className="mt-4 max-w-xl text-sm leading-relaxed text-black/60 sm:text-base">
