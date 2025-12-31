@@ -13,6 +13,7 @@ import {
 	FiCpu,
 	FiWind,
 } from "react-icons/fi";
+import Image from "next/image";
 
 const SOLUTIONS = [
 	{
@@ -118,20 +119,18 @@ export default function Navbar() {
 				<div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
 					{/* Logo */}
 					<Link href="/" className="group flex items-center gap-3">
-						{/* BRAND TEXT */}
-						<div className="leading-tight">
-							<div
-								className={`text-[13px] font-semibold tracking-wide transition ${
-									scrolled ? "text-[#1F2933]" : "text-white"
-								}`}>
-								VR GreenTek
-							</div>
-							<div
-								className={`text-[11px] transition ${
-									scrolled ? "text-[#1F2933]/60" : "text-white/70"
-								}`}>
-								Electricals • Green Energy
-							</div>
+						{/* Logo pill to keep original colors visible on hero */}
+						<div
+							className={`relative flex items-center rounded-2xl transition ${
+								scrolled ? "px-0 py-0" : "px-2 py-0.5"
+							}`}>
+							<Image
+								src="https://res.cloudinary.com/dwsm6i6z9/image/upload/w_600,q_auto,f_auto/vr_greentek_enegrgy_orange_bold_amkzmq.png"
+								alt="VR GreenTek Energy"
+								width={300}
+								height={60}
+								className="h-16 md:h-20 w-auto"
+							/>
 						</div>
 					</Link>
 

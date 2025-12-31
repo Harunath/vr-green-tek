@@ -1,5 +1,5 @@
 import { FaSolarPanel, FaBolt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-
+import Image from "next/image";
 export default function Footer() {
 	return (
 		<footer className="bg-green-50 text-slate-700">
@@ -7,9 +7,13 @@ export default function Footer() {
 			<div className="max-w-7xl mx-auto px-6 py-14 grid gap-10 md:grid-cols-4">
 				{/* BRAND */}
 				<div>
-					<h3 className="text-2xl font-bold text-slate-900">
-						<span className="text-green-600">VR</span> GreenTek
-					</h3>
+					<Image
+						src="https://res.cloudinary.com/dwsm6i6z9/image/upload/w_600,q_auto,f_auto/vr_greentek_enegrgy_orange_bold_amkzmq.png"
+						alt="VR GreenTek Energy"
+						width={300}
+						height={60}
+						className="h-16 md:h-20 w-auto"
+					/>
 					<p className="mt-3 text-sm leading-relaxed">
 						Sustainable electrical and green energy solutions supporting
 						industries, businesses, and rural development.

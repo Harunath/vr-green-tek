@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "VR Green Tek",
-	description: "VR Green Tek - Sustainable VR Solutions",
+	title: "VR GreenTek",
+	description: "VR GreenTek - Sustainable VR Solutions",
 };
 
 export default function RootLayout({
