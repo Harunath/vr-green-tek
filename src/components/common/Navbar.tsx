@@ -58,23 +58,30 @@ const NAV = [
 
 export default function Navbar() {
 	const [mobileOpen, setMobileOpen] = useState(false);
-	const [solutionsOpen, setSolutionsOpen] = useState(false);
+
+	const [solutionsOpenDesktop, setSolutionsOpenDesktop] = useState(false);
+	const [solutionsOpenMobile, setSolutionsOpenMobile] = useState(false);
+
 	const [scrolled, setScrolled] = useState(false);
 
 	const wrapRef = useRef<HTMLDivElement | null>(null);
 
-	// Close on outside click / ESC
 	useEffect(() => {
 		const onDown = (e: MouseEvent) => {
 			if (!wrapRef.current) return;
-			if (!wrapRef.current.contains(e.target as Node)) setSolutionsOpen(false);
+			if (!wrapRef.current.contains(e.target as Node)) {
+				setSolutionsOpenDesktop(false);
+			}
 		};
+
 		const onEsc = (e: KeyboardEvent) => {
 			if (e.key === "Escape") {
-				setSolutionsOpen(false);
+				setSolutionsOpenDesktop(false);
+				setSolutionsOpenMobile(false);
 				setMobileOpen(false);
 			}
 		};
+
 		document.addEventListener("mousedown", onDown);
 		document.addEventListener("keydown", onEsc);
 		return () => {
@@ -83,7 +90,6 @@ export default function Navbar() {
 		};
 	}, []);
 
-	// Lock scroll for drawer
 	useEffect(() => {
 		document.body.style.overflow = mobileOpen ? "hidden" : "";
 		return () => {
@@ -91,7 +97,6 @@ export default function Navbar() {
 		};
 	}, [mobileOpen]);
 
-	// Transparent on hero, glass on scroll
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 20);
 		onScroll();
@@ -116,9 +121,7 @@ export default function Navbar() {
 						: "border-b border-transparent bg-transparent"
 				}`}>
 				<div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
-					{/* Logo */}
 					<Link href="/" className="group flex items-center gap-3">
-						{/* Logo pill to keep original colors visible on hero */}
 						<div
 							className={`relative flex items-center rounded-2xl transition ${
 								scrolled ? "px-0 py-0" : "px-2 py-0.5"
@@ -128,12 +131,11 @@ export default function Navbar() {
 								alt="VR GreenTek Energy"
 								width={300}
 								height={60}
-								className="h-16 md:h-20 w-auto"
+								className="h-16 w-auto md:h-20"
 							/>
 						</div>
 					</Link>
 
-					{/* Desktop Nav */}
 					<nav className="hidden items-center gap-1 md:flex" ref={wrapRef}>
 						{NAV.map((item) => {
 							if (!item.dropdown) {
@@ -151,19 +153,19 @@ export default function Navbar() {
 								<div key={item.href} className="relative">
 									<button
 										type="button"
-										onClick={() => setSolutionsOpen((s) => !s)}
+										onClick={() => setSolutionsOpenDesktop((s) => !s)}
 										className={`flex items-center gap-2 ${navLinkClass} ${navLinkDynamic}`}
 										aria-haspopup="menu"
-										aria-expanded={solutionsOpen}>
+										aria-expanded={solutionsOpenDesktop}>
 										Solutions
 										<FiChevronDown
 											className={`transition ${
-												solutionsOpen ? "rotate-180" : ""
+												solutionsOpenDesktop ? "rotate-180" : ""
 											}`}
 										/>
 									</button>
 
-									{solutionsOpen && (
+									{solutionsOpenDesktop && (
 										<div
 											role="menu"
 											className="absolute left-0 top-[calc(100%+10px)] w-95 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-2xl">
@@ -174,7 +176,7 @@ export default function Navbar() {
 														<Link
 															key={s.href}
 															href={s.href}
-															onClick={() => setSolutionsOpen(false)}
+															onClick={() => setSolutionsOpenDesktop(false)}
 															className="group flex items-start gap-3 rounded-2xl p-3 hover:bg-[#1F7A4D]/10 transition"
 															role="menuitem">
 															<div className="mt-0.5 grid h-10 w-10 place-items-center rounded-2xl bg-black/5 text-[#1F7A4D] group-hover:bg-white transition">
@@ -202,7 +204,7 @@ export default function Navbar() {
 												</div>
 												<Link
 													href="/contact"
-													onClick={() => setSolutionsOpen(false)}
+													onClick={() => setSolutionsOpenDesktop(false)}
 													className="inline-flex items-center gap-2 rounded-2xl bg-[#F9C74F] px-3 py-2 text-xs font-semibold text-[#1F2933] hover:opacity-90 transition">
 													Talk to us <FiArrowUpRight />
 												</Link>
@@ -214,7 +216,6 @@ export default function Navbar() {
 						})}
 					</nav>
 
-					{/* Desktop CTA */}
 					<div className="hidden items-center gap-2 md:flex">
 						<Link
 							href="/contact"
@@ -237,7 +238,6 @@ export default function Navbar() {
 						</Link>
 					</div>
 
-					{/* Mobile menu button */}
 					<button
 						type="button"
 						className={`md:hidden inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-semibold transition ${
@@ -245,24 +245,29 @@ export default function Navbar() {
 								? "text-[#1F2933] hover:bg-black/5"
 								: "text-white hover:bg-white/10"
 						}`}
-						onClick={() => setMobileOpen(true)}
+						onClick={() => {
+							setMobileOpen(true);
+							setSolutionsOpenMobile(false); // ✅ reset for clean open
+						}}
 						aria-label="Open menu">
 						<FiMenu className="text-lg" />
 					</button>
 				</div>
 			</div>
 
-			{/* Mobile Drawer */}
 			{mobileOpen && (
 				<div
-					className="fixed inset-0 z-50 md:hidden"
+					className="fixed inset-0 z-9999 md:hidden"
 					role="dialog"
 					aria-modal="true">
 					<div
-						className="absolute inset-0 bg-black/40"
+						className="absolute inset-0 z-0 bg-black/40"
 						onClick={() => setMobileOpen(false)}
 					/>
-					<div className="absolute right-0 top-0 h-full w-[86%] max-w-sm bg-white shadow-2xl">
+
+					<div
+						className="absolute right-0 top-0 z-10 h-full w-[86%] max-w-sm bg-white shadow-2xl"
+						onClick={(e) => e.stopPropagation()}>
 						<div className="flex items-center justify-between border-b border-black/5 px-4 py-4">
 							<div className="text-sm font-semibold text-[#1F2933]">Menu</div>
 							<button
@@ -290,17 +295,18 @@ export default function Navbar() {
 								return (
 									<div key={item.href} className="px-2">
 										<button
+											type="button"
 											className="flex w-full items-center justify-between rounded-2xl px-2 py-3 text-sm font-medium text-[#1F2933]/85 hover:bg-black/5 transition"
-											onClick={() => setSolutionsOpen((s) => !s)}>
+											onClick={() => setSolutionsOpenMobile((s) => !s)}>
 											Solutions
 											<FiChevronDown
 												className={`transition ${
-													solutionsOpen ? "rotate-180" : ""
+													solutionsOpenMobile ? "rotate-180" : ""
 												}`}
 											/>
 										</button>
 
-										{solutionsOpen && (
+										{solutionsOpenMobile && (
 											<div className="mb-2 ml-2 border-l border-black/10 pl-2">
 												{SOLUTIONS.map((s) => {
 													const Icon = s.icon;
