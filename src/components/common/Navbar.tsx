@@ -53,7 +53,6 @@ const NAV = [
 	{ label: "About", href: "/about" },
 	{ label: "Solutions", href: "/solutions", dropdown: true },
 	{ label: "Projects", href: "/projects" },
-	{ label: "Impact", href: "/impact" },
 	{ label: "Contact", href: "/contact" },
 ];
 
