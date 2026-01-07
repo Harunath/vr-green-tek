@@ -127,7 +127,7 @@ export default function Navbar() {
 								scrolled ? "px-0 py-0" : "px-2 py-0.5"
 							}`}>
 							<Image
-								src="https://res.cloudinary.com/dwsm6i6z9/image/upload/w_600,q_auto,f_auto/vr_greentek_enegrgy_orange_bold_amkzmq.png"
+								src="https://res.cloudinary.com/dwsm6i6z9/image/upload/v1767159149/vr_greentek_enegrgy_orange_bold_zzwnkq.png"
 								alt="VR GreenTek Energy"
 								width={300}
 								height={60}
